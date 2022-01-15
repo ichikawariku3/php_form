@@ -6,7 +6,14 @@ function h($value) {
 
 // dbへの接続
 function dbconnect() {
-	$db = new mysqli('us-cdbr-east-05.cleardb.net', 'b3be3df7a84238', '8a987262', 'heroku_c4974c1348a806b');
+	$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+
+$server = $url["us-cdbr-east-05.cleardb.net"];
+$username = $url["b3be3df7a84238"];
+$password = $url["8a987262"];
+$db = substr($url["heroku_c4974c1348a806b"], 1);
+
+	$conn = new mysqli($server, $username, $password, $db);
 	if (!$db) {
 		die($db->error);
 	}

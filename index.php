@@ -4,10 +4,10 @@
   $mode = 'input';
   $errmessage = [];
 
-  $db = dbconnect();
-  $forms = $db->query('select message, created from forms order by id asc');
+  $conn = dbconnect();
+  $forms = $conn->query('select message, created from forms order by id asc');
   if (!$forms) {
-    die($db->error);
+    die($conn->error);
   }
 
   if( isset($_POST['back']) && $_POST['back'] ){
@@ -44,14 +44,14 @@
     }
   } else if( isset($_POST['send']) && $_POST['send'] ){
     // 送信ボタンを押したとき
-    $stmt = $db->prepare('insert into forms (name, email, message) VALUES (?, ?, ?)');
+    $stmt = $conn->prepare('insert into forms (name, email, message) VALUES (?, ?, ?)');
 	if (!$stmt) {
-		die($db->error);
+		die($conn->error);
 	}
 	$stmt->bind_param('sss', $_SESSION['name'], $_SESSION['email'], $_SESSION['message']);
 	$success = $stmt->execute();
 	if (!$success) {
-		die($db->error);
+		die($conn->error);
 	}
 
     $_SESSION = array();
