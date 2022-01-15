@@ -78,7 +78,7 @@
         echo '</div>';
       }
     ?>
-    <form action="./contactform.php" method="post">
+    <form action="./index.php" method="post">
       名前    <input type="text"    name="name" value="<?php echo $_SESSION['name'] ?>"><br>
       Eメール <input type="email"   name="email"    value="<?php echo $_SESSION['email'] ?>"><br>
       お問い合わせ内容<br>
@@ -98,7 +98,7 @@
     ?>
   <?php } else if( $mode == 'confirm' ){ ?>
     <!-- 確認画面 -->
-    <form action="./contactform.php" method="post">
+    <form action="./index.php" method="post">
       名前    <?php echo $_SESSION['name'] ?><br>
       Eメール <?php echo $_SESSION['email'] ?><br>
       お問い合わせ内容<br>
