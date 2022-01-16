@@ -1,6 +1,7 @@
 {
     "name": "php/php_form",
 	"require": {
+        "ext-mbstring":"*",
 		"monolog/monolog": "^2.3"
 	}
 }
