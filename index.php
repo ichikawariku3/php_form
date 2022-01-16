@@ -2,7 +2,7 @@
   session_start();
 	require('./library.php');
   $mode = 'input';
-  $errmessage = [];
+  $errormessage = [];
 
   $conn = dbconnect();
   $forms = $conn->query('select message, created from forms order by id asc');
@@ -15,29 +15,29 @@
   } else if( isset($_POST['confirm']) && $_POST['confirm'] ){
       // 確認画面
     if( !$_POST['name'] ) {
-        $errmessage[] = "名前を入力してください";
+        $errormessage[] = "名前を入力してください";
     } else if( mb_strlen($_POST['name']) > 100 ){
-        $errmessage[] = "名前は100文字以内にしてください";
+        $errormessage[] = "名前は100文字以内にしてください";
     }
       $_SESSION['name'] = h($_POST['name']);
 
       if( !$_POST['email'] ) {
-          $errmessage[] = "Eメールを入力してください";
+          $errormessage[] = "Eメールを入力してください";
       } else if( mb_strlen($_POST['email']) > 200 ){
-          $errmessage[] = "Eメールは200文字以内にしてください";
+          $errormessage[] = "Eメールは200文字以内にしてください";
     } else if( !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) ){
-        $errmessage[] = "メールアドレスが不正です";
+        $errormessage[] = "メールアドレスが不正です";
       }
       $_SESSION['email'] = h($_POST['email']);
 
       if( !$_POST['message'] ){
-          $errmessage[] = "お問い合わせ内容を入力してください";
+          $errormessage[] = "お問い合わせ内容を入力してください";
       } else if( mb_strlen($_POST['message']) > 500 ){
-          $errmessage[] = "お問い合わせ内容は500文字以内にしてください";
+          $errormessage[] = "お問い合わせ内容は500文字以内にしてください";
       }
       $_SESSION['message'] = h($_POST['message']);
 
-      if( $errmessage ){
+      if( $errormessage ){
         $mode = 'input';
     } else {
         $mode = 'confirm';
@@ -72,9 +72,9 @@
   <?php if( $mode == 'input' ){ ?>
     <!-- 入力画面 -->
     <?php
-      if( $errmessage ){
+      if( $errormessage ){
         echo '<div style="color:red;">';
-        echo implode('<br>', $errmessage );
+        echo implode('<br>', $errormessage );
         echo '</div>';
       }
     ?>
