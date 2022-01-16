@@ -44,6 +44,7 @@
     }
   } else if( isset($_POST['send']) && $_POST['send'] ){
     // 送信ボタンを押したとき
+    $conn = dbconnect();
     $stmt = $conn->prepare('insert into forms (name, email, message) VALUES (?, ?, ?)');
 	if (!$stmt) {
 		die($conn->error);
