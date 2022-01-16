@@ -8,16 +8,18 @@ function h($value) {
 function dbconnect() {
 	$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
-$server = $url["host"];//us-cdbr-east-05.cleardb.net
-$username = $url["user"];//b3be3df7a84238
-$password = $url["pass"];//8a987262
-$db = substr($url["path"], 1);//heroku_c4974c1348a806b
+$server = $url["host"];
+$username = $url["user"];
+$password = $url["pass"];
+$db = substr($url["path"], 1);
 
 	$conn = new mysqli($server, $username, $password, $db);
-	if (!$db) {
-		die($db->error);
+	$conn->set_charset('utf8');
+
+	if (!$conn) {
+		die($conn->error);
 	}
 
-	return $db;
+	return $conn;
 }
 ?>
