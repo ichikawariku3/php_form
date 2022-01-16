@@ -1,4 +1,6 @@
 <?php
+  ini_set("display_errors", 1);
+  error_reporting(E_ALL);
   session_start();
 	require('./library.php');
   $mode = 'input';
@@ -44,7 +46,6 @@
     }
   } else if( isset($_POST['send']) && $_POST['send'] ){
     // 送信ボタンを押したとき
-    $conn = dbconnect();
     $stmt = $conn->prepare('insert into forms (name, email, message) VALUES (?, ?, ?)');
 	if (!$stmt) {
 		die($conn->error);
